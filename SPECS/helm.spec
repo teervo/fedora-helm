@@ -7,6 +7,7 @@ License:        GPL-3.0
 URL:            http://tytel.org/helm
 Source0:        https://github.com/mtytel/%{name}/archive/v%{version}.tar.gz
 Source1:        %{name}.appdata.xml
+Patch0:         00-gcc-9.1.compatibility-fixes.patch
 
 BuildRequires:  lv2-devel libX11-devel alsa-lib-devel libXext-devel libXinerama-devel freetype-devel libcurl-devel mesa-libGL-devel jack-audio-connection-kit-devel libXcursor-devel gcc-c++ libappstream-glib
 Requires:       freetype libXext mesa-libGL
@@ -27,7 +28,7 @@ Mac, and Windows as a standalone program and as a LV2/VST/AU/AAX plugin.
 This package installs the LV2 plugin.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %configure
