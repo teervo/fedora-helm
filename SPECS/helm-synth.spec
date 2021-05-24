@@ -5,7 +5,7 @@ Summary:        Helm is a free polyphonic synth with lots of modulation
 
 License:        GPL-3.0
 URL:            http://tytel.org/helm
-Source0:        https://github.com/mtytel/%{name}/archive/v%{version}.tar.gz
+Source0:        https://github.com/mtytel/helm/archive/v%{version}.tar.gz
 Source1:        %{name}.appdata.xml
 Patch0:         00-gcc-9.1.compatibility-fixes.patch
 
