@@ -1,6 +1,6 @@
 Name:           helm-synth
-Version:        0.9.0 
-Release:        1%{?dist}
+Version:        0.9.0
+Release:        2%{?dist}
 Summary:        Helm is a free polyphonic synth with lots of modulation
 
 License:        GPL-3.0
@@ -74,3 +74,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 * Thu Oct 25 2018 Patrice Ferlet <metal3d_at_gmail.com>
 - initial release
 - appdata file created
+* Mon May 24 2021 teervo <teervo_at_protonmail.com>
+- rename package and installed files to helm-synth to avoid conflicts with https://helm.sh/
+- include patch from https://github.com/mtytel/helm/pull/233
+- generate package for VST plugin
