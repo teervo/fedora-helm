@@ -1,4 +1,4 @@
-Name:           helm
+Name:           helm-synth
 Version:        0.9.0 
 Release:        1%{?dist}
 Summary:        Helm is a free polyphonic synth with lots of modulation
@@ -39,27 +39,30 @@ Mac, and Windows as a standalone program and as a LV2/VST/AU/AAX plugin.
 This package installs the VST plugin.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n helm-%{version}
+sed 's:$(DESKTOP)/helm.desktop:$(DESKTOP)/$(PROGRAM).desktop:' -i Makefile
+sed s:Exec=helm:Exec=%{name}: -i standalone/helm.desktop
 
 %build
-%make_build
+%make_build JUCE_TARGET_APP=%{name}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%make_install LIBDIR=%{_libdir} VSTDIR=%{buildroot}%{_libdir}/vst
+%make_install PROGRAM=%{name} LIBDIR=%{_libdir} VSTDIR=%{buildroot}%{_libdir}/vst
+mv %{buildroot}%{_mandir}/man1/helm.1.gz %{buildroot}%{_mandir}/man1/%{name}.1.gz
 
 # install appdata file
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files
-%doc %{_mandir}
+%{_bindir}/%{name}
 %{_datadir}/doc
-%{_datadir}/helm
+%{_datadir}/%{name}
 %{_datadir}/applications
 %{_datadir}/icons
-%{_bindir}/helm
 %{_metainfodir}/%{name}.appdata.xml
+%doc %{_mandir}
 
 %files -n lv2-%{name}
 %{_libdir}/lv2
