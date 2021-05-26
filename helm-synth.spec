@@ -3,7 +3,7 @@
 
 Name:           helm-synth
 Version:        0.9.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Helm is a free polyphonic synth with lots of modulation
 
 License:        GPL-3.0
@@ -13,18 +13,18 @@ Source1:        %{name}.appdata.xml
 Patch0:         00-gcc-9.1.compatibility-fixes.patch
 
 BuildRequires:  lv2-devel libX11-devel alsa-lib-devel libXext-devel libXinerama-devel freetype-devel libcurl-devel mesa-libGL-devel jack-audio-connection-kit-devel libXcursor-devel gcc-c++ libappstream-glib
-Requires:       %{name}-common freetype libXext mesa-libGL
+Requires:       %{name}-common freetype mesa-libGL
 
 %package -n %{name}-common
 Summary:        Presets and documentation for the Helm polyphonic synth
 
 %package -n lv2-%{name}
 Summary:        Helm LV2 plugin is a free polyphonic synth with lots of modulation
-Requires:       %{name}-common lv2 freetype libXext mesa-libGL
+Requires:       %{name}-common lv2 freetype mesa-libGL
 
 %package -n vst-%{name}
 Summary:        Helm VST plugin is a free polyphonic synth with lots of modulation
-Requires:       %{name}-common freetype libXext mesa-libGL
+Requires:       %{name}-common freetype mesa-libGL
 
 
 %description
