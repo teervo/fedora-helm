@@ -3,7 +3,7 @@
 
 Name:           helm-synth
 Version:        0.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Helm is a free polyphonic synth with lots of modulation
 
 License:        GPL-3.0
@@ -63,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 %make_install PROGRAM=%{name} LIBDIR=%{_libdir} VSTDIR=%{buildroot}%{_libdir}/vst
 
 # Documentation
-install -m 0644 docs/helm_manual.pdf %{buildroot}%{_datadir}/doc
+install -m 0644 docs/helm_manual.pdf %{buildroot}%{_datadir}/doc/%{name}
 mv %{buildroot}%{_mandir}/man1/helm.1.gz %{buildroot}%{_mandir}/man1/%{name}.1.gz
 
 # install appdata file
