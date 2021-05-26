@@ -1,6 +1,6 @@
 Name:           helm-synth
 Version:        0.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Helm is a free polyphonic synth with lots of modulation
 
 License:        GPL-3.0
@@ -40,8 +40,11 @@ This package installs the VST plugin.
 
 %prep
 %autosetup -p1 -n helm-%{version}
+# renaming helm to helm-synth:
 sed 's:$(DESKTOP)/helm.desktop:$(DESKTOP)/$(PROGRAM).desktop:' -i Makefile
 sed s:Exec=helm:Exec=%{name}: -i standalone/helm.desktop
+sed s:/usr/share/helm:/usr/share/helm-synth: -i src/common/load_save.cpp
+sed s:/usr/share/helm:/usr/share/helm-synth: -i src/editor_sections/patch_browser.cpp
 
 %build
 %make_build JUCE_TARGET_APP=%{name}
@@ -78,3 +81,5 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 - rename package and installed files to helm-synth to avoid conflicts with https://helm.sh/
 - include patch from https://github.com/mtytel/helm/pull/233
 - generate package for VST plugin
+* Wed May 26 2021 teervo <teervo_at_protonmail.com>
+- fix issue with patch directory location
