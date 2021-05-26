@@ -1,6 +1,9 @@
+%define debug_package %{nil}
+%define _build_id_links none
+
 Name:           helm-synth
 Version:        0.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Helm is a free polyphonic synth with lots of modulation
 
 License:        GPL-3.0
@@ -10,23 +13,29 @@ Source1:        %{name}.appdata.xml
 Patch0:         00-gcc-9.1.compatibility-fixes.patch
 
 BuildRequires:  lv2-devel libX11-devel alsa-lib-devel libXext-devel libXinerama-devel freetype-devel libcurl-devel mesa-libGL-devel jack-audio-connection-kit-devel libXcursor-devel gcc-c++ libappstream-glib
-Requires:       freetype libXext mesa-libGL
+Requires:       %{name}-common freetype libXext mesa-libGL
 
-%define debug_package %{nil}
-%define _build_id_links none
+%package -n %{name}-common
+Summary:        Presets and documentation for the Helm polyphonic synth
 
 %package -n lv2-%{name}
 Summary:        Helm LV2 plugin is a free polyphonic synth with lots of modulation
-Requires:       lv2 freetype libXext mesa-libGL
+Requires:       %{name}-common lv2 freetype libXext mesa-libGL
 
 %package -n vst-%{name}
 Summary:        Helm VST plugin is a free polyphonic synth with lots of modulation
-Requires:       freetype libXext mesa-libGL
+Requires:       %{name}-common freetype libXext mesa-libGL
+
 
 %description
 Helm is a free, cross-platform, polyphonic synthesizer that runs on GNU/Linux,
 Mac, and Windows as a standalone program and as a LV2/VST/AU/AAX plugin.
-You can install helm (standalone), or lv2-helm that is LV2 plugin.
+You can install %{name} (standalone), lv2-%{name} (LV2 plugin) or vst-%{name} (VST plugin).
+
+%description -n %{name}-common
+Helm is a free, cross-platform, polyphonic synthesizer that runs on GNU/Linux,
+Mac, and Windows as a standalone program and as a LV2/VST/AU/AAX plugin.
+This package contains presets and documentation.
 
 %description -n lv2-%{name}
 Helm is a free, cross-platform, polyphonic synthesizer that runs on GNU/Linux,
@@ -52,6 +61,9 @@ sed s:/usr/share/helm:/usr/share/helm-synth: -i src/editor_sections/patch_browse
 %install
 rm -rf $RPM_BUILD_ROOT
 %make_install PROGRAM=%{name} LIBDIR=%{_libdir} VSTDIR=%{buildroot}%{_libdir}/vst
+
+# Documentation
+install -m 0644 docs/helm_manual.pdf %{buildroot}%{_datadir}/doc
 mv %{buildroot}%{_mandir}/man1/helm.1.gz %{buildroot}%{_mandir}/man1/%{name}.1.gz
 
 # install appdata file
@@ -60,12 +72,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files
 %{_bindir}/%{name}
-%{_datadir}/doc
-%{_datadir}/%{name}
 %{_datadir}/applications
 %{_datadir}/icons
 %{_metainfodir}/%{name}.appdata.xml
 %doc %{_mandir}
+
+%files -n %{name}-common
+%doc %{_datadir}/doc
+%{_datadir}/%{name}
 
 %files -n lv2-%{name}
 %{_libdir}/lv2
@@ -83,3 +97,5 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 - generate package for VST plugin
 * Wed May 26 2021 teervo <teervo_at_protonmail.com>
 - fix issue with patch directory location
+- split patches and documentation into their own package
+- install PDF manual
