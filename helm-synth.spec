@@ -16,7 +16,7 @@ BuildRequires:  lv2-devel libX11-devel alsa-lib-devel libXext-devel
 BuildRequires:  libXinerama-devel freetype-devel libcurl-devel
 BuildRequires:  mesa-libGL-devel jack-audio-connection-kit-devel
 BuildRequires:  libXcursor-devel gcc-c++ libappstream-glib
-BuildRequires:  mesktop-file-utils
+BuildRequires:  desktop-file-utils
 Requires:       %{name}-common freetype mesa-libGL
 
 %package -n %{name}-common
