@@ -93,7 +93,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc %{_mandir}/man1/helm-synth.1.gz
 
 %files -n %{name}-common
-%doc %{_datadir}/doc/${name}
+%doc %{_datadir}/doc/%{name}
 %{_datadir}/%{name}
 
 %files -n lv2-%{name}
