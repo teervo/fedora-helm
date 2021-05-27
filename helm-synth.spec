@@ -14,9 +14,9 @@ Patch0:         00-gcc-9.1.compatibility-fixes.patch
 
 BuildRequires:  lv2-devel libX11-devel alsa-lib-devel libXext-devel
 BuildRequires:  libXinerama-devel freetype-devel libcurl-devel
-BuildRequires:  lesa-libGL-devel jack-audio-connection-kit-devel
+BuildRequires:  mesa-libGL-devel jack-audio-connection-kit-devel
 BuildRequires:  libXcursor-devel gcc-c++ libappstream-glib
-BuildRequires:  lesktop-file-utils
+BuildRequires:  mesktop-file-utils
 Requires:       %{name}-common freetype mesa-libGL
 
 %package -n %{name}-common
