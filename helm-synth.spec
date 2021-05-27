@@ -68,7 +68,7 @@ sed s:/usr/share/helm:/usr/share/helm-synth: -i src/editor_sections/patch_browse
 rm -rf ${buildroot}
 %make_install PROGRAM=%{name} LIBDIR=%{_libdir} VSTDIR=%{buildroot}%{_libdir}/vst
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
-	%{buildroot}%{_datadir}/applications/${name.desktop}
+	%{buildroot}%{_datadir}/applications/${name}.desktop
 
 # Documentation
 install -m 0644 docs/helm_manual.pdf %{buildroot}%{_datadir}/doc/%{name}
