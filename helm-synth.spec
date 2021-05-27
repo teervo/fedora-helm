@@ -12,11 +12,11 @@ Source0:        https://github.com/mtytel/helm/archive/v%{version}.tar.gz
 Source1:        %{name}.appdata.xml
 Patch0:         00-gcc-9.1.compatibility-fixes.patch
 
-BuildRequires:  lv2-devel libX11-devel alsa-lib-devel libXext-devel \
-				libXinerama-devel freetype-devel libcurl-devel \
-				mesa-libGL-devel jack-audio-connection-kit-devel \
-				libXcursor-devel gcc-c++ libappstream-glib \
-				desktop-file-utils
+BuildRequires:  lv2-devel libX11-devel alsa-lib-devel libXext-devel
+BuildRequires:  libXinerama-devel freetype-devel libcurl-devel
+BuildRequires:  lesa-libGL-devel jack-audio-connection-kit-devel
+BuildRequires:  libXcursor-devel gcc-c++ libappstream-glib
+BuildRequires:  lesktop-file-utils
 Requires:       %{name}-common freetype mesa-libGL
 
 %package -n %{name}-common
