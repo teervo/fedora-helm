@@ -1,5 +1,5 @@
-%define debug_package %{nil}
-%define _build_id_links none
+%global         debug_package %{nil}
+%global         _build_id_links none
 
 Name:           helm-synth
 Version:        0.9.0
@@ -12,7 +12,11 @@ Source0:        https://github.com/mtytel/helm/archive/v%{version}.tar.gz
 Source1:        %{name}.appdata.xml
 Patch0:         00-gcc-9.1.compatibility-fixes.patch
 
-BuildRequires:  lv2-devel libX11-devel alsa-lib-devel libXext-devel libXinerama-devel freetype-devel libcurl-devel mesa-libGL-devel jack-audio-connection-kit-devel libXcursor-devel gcc-c++ libappstream-glib
+BuildRequires:  lv2-devel libX11-devel alsa-lib-devel libXext-devel \
+				libXinerama-devel freetype-devel libcurl-devel \
+				mesa-libGL-devel jack-audio-connection-kit-devel \
+				libXcursor-devel gcc-c++ libappstream-glib \
+				desktop-file-utils
 Requires:       %{name}-common freetype mesa-libGL
 
 %package -n %{name}-common
@@ -20,6 +24,7 @@ Summary:        Presets and documentation for the Helm polyphonic synth
 
 %package -n lv2-%{name}
 Summary:        Helm LV2 plugin is a free polyphonic synth with lots of modulation
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-common lv2 freetype mesa-libGL
 
 %package -n vst-%{name}
@@ -60,8 +65,10 @@ sed s:/usr/share/helm:/usr/share/helm-synth: -i src/editor_sections/patch_browse
 %make_build JUCE_TARGET_APP=%{name}
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf ${buildroot}
 %make_install PROGRAM=%{name} LIBDIR=%{_libdir} VSTDIR=%{buildroot}%{_libdir}/vst
+desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
+	%{buildroot}%{_datadir}/applications/${name.desktop}
 
 # Documentation
 install -m 0644 docs/helm_manual.pdf %{buildroot}%{_datadir}/doc/%{name}
@@ -86,7 +93,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc %{_mandir}/man1/helm-synth.1.gz
 
 %files -n %{name}-common
-%doc %{_datadir}/doc
+%doc %{_datadir}/doc/${name}
 %{_datadir}/%{name}
 
 %files -n lv2-%{name}
