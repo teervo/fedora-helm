@@ -2,7 +2,7 @@
 
 See Helm project here: https://tytel.org/helm/
 
-This repository is based on [metal3d's earlier package]{https://github.com/metal3d/fedora-helm} and is used to generate the Copr repo [teervo/helm-synth]{https://copr.fedorainfracloud.org/coprs/teervo/helm-synth/}.
+This repository is based on [metal3d's earlier package](https://github.com/metal3d/fedora-helm) and is used to generate the Copr repo [teervo/helm-synth](https://copr.fedorainfracloud.org/coprs/teervo/helm-synth/).
 
 To install, first enable the repository
 ```
